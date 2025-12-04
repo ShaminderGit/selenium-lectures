@@ -1,7 +1,7 @@
 # Selenium Lectures and Hybrid Framework
 
 This repository contains my lecture notes and code examples for **teaching Selenium automation**.  
-It is not limited to lectures — it also includes a **hybrid test automation framework** built using the **Page Object Model (POM) pattern**.
+It is not limited to lectures- it also includes a **hybrid test automation framework** built using the **Page Object Model (POM) pattern**.
 
 ---
 
