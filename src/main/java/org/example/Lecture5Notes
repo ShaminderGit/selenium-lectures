@@ -1,0 +1,32 @@
+Chapter5
+
+1. Absolute Xpath  vs  Relative Xpath
+An absolute XPath gives the full path from the root of the HTML document to the
+element, while a relative XPath starts from anywhere in the DOM and finds the
+element based on its relationship to other nodes. Absolute XPaths are fragile
+and break easily if the page structure changes, whereas relative XPaths are shorter,
+more flexible, and preferred in Selenium automation
+
+2.• A static dropdown is an HTML element where all the choices are fixed and listed inside  tags within a  tag.
+-Example in HTML:
+  <select id="country">
+    <option value="IN">India</option>
+    <option value="US">United States</option>
+    <option value="CA">Canada</option>
+  </select>
+-Here, the dropdown always contains India, United States, Canada unless the page code itself is modified.
+- Why “Static”?
+    Because the options are hardcoded into the HTML and do not change based on user interaction or backend calls.
+    In contrast, a dynamic dropdown fetches or updates options based on user input or server responses.
+
+3.Handling Static Dropdowns in Selenium
+Selenium provides a special Select class (from org.openqa.selenium.support.ui.Select) to interact with static dropdowns:
+- Steps:
+- Locate the dropdown element using By.id, By.name, etc.
+- Create a Select object with that element.
+- Use methods like:
+- selectByVisibleText("United States")
+- selectByValue("US")
+- selectByIndex(1)
+
+
