@@ -1,0 +1,63 @@
+Lecture: Handling Alerts in Selenium (Java)
+
+1. Introduction
+- In web applications, sometimes a popup message box (alert) appears.
+- Alerts interrupt the normal flow of execution until the user interacts with them.
+- Selenium provides the Alert interface to handle these popups.
+
+Think of alerts as a security guard at the hostel gate. Until you respond (OK, Cancel, or give input),
+you cannot move forward.
+
+
+2. Types of Alerts
+- Simple Alert → Just shows a message with an OK button.
+- Confirmation Alert → Asks for confirmation with OK and Cancel.
+- Prompt Alert → Asks the user to enter text before proceeding.
+
+3. Steps to Handle Alerts
+- Switch to the alert
+Alert alert = driver.switchTo().alert();
+- Perform actions
+- alert.accept(); → Clicks OK.
+- alert.dismiss(); → Clicks Cancel.
+- alert.getText(); → Gets the alert message.
+- alert.sendKeys("text"); → Enters text into a prompt alert.
+
+Examples
+Example 1: Simple Alert
+Alert alert = driver.switchTo().alert();
+System.out.println(alert.getText());  // print alert message
+alert.accept();                       // click OK
+
+
+Example 2: Confirmation Alert
+Alert alert = driver.switchTo().alert();
+alert.dismiss();   // click Cancel
+
+
+Example 3: Prompt Alert
+Alert alert = driver.switchTo().alert();
+alert.sendKeys("Test");  // enter text
+alert.accept();               // click OK
+
+5. Best Practices
+- Always wait for the alert before switching (use WebDriverWait).
+- Handle unexpected alerts with try–catch to avoid test failures.
+- Close alerts immediately to continue test execution.
+
+
+
+Handling Alerts in Selenium
+│
+├── Switch to Alert → driver.switchTo().alert()
+│
+├── Actions
+│   ├── accept() → OK
+│   ├── dismiss() → Cancel
+│   ├── getText() → Read message
+│   └── sendKeys() → Enter text (Prompt)
+│
+└── Best Practices
+    ├── Use WebDriverWait
+    ├── Handle unexpected alerts
+    └── Close alerts quickly
