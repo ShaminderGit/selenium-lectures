@@ -1,0 +1,122 @@
+Selenium Actions Class and Frames
+
+1. Introduction
+- Definition: The Actions class in Selenium WebDriver is part of the Advanced User Interactions API.
+- Purpose: It allows automation of complex gestures that mimic human interactions with a browser.
+- Package: org.openqa.selenium.interactions.Actions
+
+2. Why Do We Need Actions Class?
+- Basic WebDriver commands (click(), sendKeys()) are limited.
+- Real-world scenarios often require:
+- Hovering over menus
+- Dragging and dropping elements
+- Right-clicking (context menu)
+- Double-clicking
+- Keyboard shortcuts (CTRL + C, CTRL + V)
+- Actions class bridges this gap by providing granular control over input devices.
+
+3. Supported Input Devices
+Selenium’s Actions API supports:
+- Keyboard input (keys, shortcuts)
+- Pointer input (mouse, pen, touch)
+- Wheel input (scroll wheel, introduced in Selenium 4.2)
+
+4 How It Works
+- Builder Pattern: You chain actions together.
+- Execution: Call .perform() to run them.
+- Example:
+WebDriver driver = new ChromeDriver();
+Actions actions = new Actions(driver);
+
+WebElement source = driver.findElement(By.id("drag"));
+WebElement target = driver.findElement(By.id("drop"));
+
+actions.moveToElement(source)
+       .clickAndHold()
+       .moveToElement(target)
+       .release()
+       .build()
+       .perform();
+5. Practical Use Cases
+- Hover menus: Navigating dropdowns that only appear on hover.
+- Drag-and-drop testing: File uploads, UI rearrangements.
+- Keyboard shortcuts: Testing text editors or input fields.
+- Right-click menus: Context-sensitive options.
+
+6. Best Practices
+- Always use .perform() → Without it, actions won’t execute.
+- Use explicit waits → Ensure elements are visible before performing actions.
+- Keep actions minimal → Don’t overuse Actions when simple .click() suffices.
+- Cross-browser testing → Some gestures behave differently across browsers
+
+7.Mouse-related methods
+- click() → Performs a click at the current mouse location or on a specified element.
+- doubleClick() → Performs a double-click on the element.
+- contextClick() → Performs a right-click (opens context menu).
+- moveToElement(WebElement) → Moves the mouse pointer to the middle of the specified element (useful for hover).
+- clickAndHold(WebElement) → Clicks (holds down) the left mouse button on the element without releasing.
+- release() → Releases the mouse button (often used after clickAndHold).
+- dragAndDrop(source, target) → Drags an element from source and drops it on target.
+- dragAndDropBy(source, xOffset, yOffset) → Drags an element by a given offset (pixels).
+
+8.Keyboard-related methods
+- sendKeys(CharSequence keys) → Sends keyboard input to the browser (e.g., typing text or pressing keys).
+- keyDown(Keys modifierKey) → Presses down a modifier key (like SHIFT, CTRL, ALT).
+- keyUp(Keys modifierKey) → Releases the modifier key.
+- sendKeys(Keys.chord(Keys.CONTROL, "a")) → Executes keyboard shortcuts (like CTRL+A for select all).
+
+9.Composite methods
+  - build() → Compiles all the actions into a single sequence.
+  - perform() → Executes the compiled sequence of actions.
+
+
+10.WebDriver driver = new ChromeDriver();
+   Actions actions = new Actions(driver);
+
+   WebElement element = driver.findElement(By.id("menu"));
+
+   // Hover and click
+   actions.moveToElement(element).click().perform();
+
+
+
+Frames
+Frames are mini web pages inside a bigger page. Selenium needs to switch focus into the frame
+before interacting with elements inside it, and then switch back out when done.
+
+1. What Are Frames?
+- Definition: A frame (or iframe) is an HTML document embedded inside another HTML document.
+- Purpose: They allow web developers to load external content (ads, videos, widgets) within a page.
+- Challenge for Automation: Selenium WebDriver can only interact with elements in the current frame. If an element is inside an iframe, you must switch to it before interacting.
+
+
+2. Why Frames Matter in Automation
+- If you try to locate an element inside a frame without switching, Selenium throws a NoSuchElementException.
+- Many real-world apps use frames for:
+- Payment gateways
+- Embedded maps
+- Social media widgets
+- Rich text editors
+
+
+3. Switching Between Frames
+Selenium provides methods to move the driver’s focus:
+- driver.switchTo().frame(index)
+Switch using the frame’s index (0-based).
+driver.switchTo().frame(0);
+- driver.switchTo().frame(nameOrId)
+Switch using the frame’s name or id attribute.
+driver.switchTo().frame("frameName");
+- driver.switchTo().frame(WebElement)
+Switch using a frame WebElement.
+WebElement frameElement = driver.findElement(By.xpath("//iframe[@id='myFrame']"));
+driver.switchTo().frame(frameElement);
+- driver.switchTo().defaultContent()
+Switch back to the main page (outside all frames).
+- driver.switchTo().parentFrame()
+Switch to the parent frame if you’re inside nested frames.
+
+
+
+
+
